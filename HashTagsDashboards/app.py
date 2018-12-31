@@ -18,4 +18,13 @@ def refresh_graph_data():
 	return jsonify(sLabel = labels , sData = values)
 @app.route('/updateData' , methods =['POST'])
 def update_data():
-	
+	global labels , values
+	if not request.form or 'data' not in request.form :
+		return "error" , 400
+	labels= ast.literal_eval(request.form['label'])
+	values = ast.literal_eval(request.form['data'])
+	print("labels received: " + str(labels))
+	print("data received: " + str(values))
+	return "success",201
+if __name__ == "__main__":
+	app.run(host='localhost', port=5001)
